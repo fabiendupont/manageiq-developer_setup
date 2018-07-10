@@ -160,3 +160,19 @@ The `inventory.example.yml` file shows the options one can set.
 | manageiq_git_repos              | [ { "name": "manageiq", "username": "ManageIQ", "branch": "master", "deps_command": "scl enable {{ manageiq_ruby_scl }} {{ manageiq_postgresql_scl }} 'bundle install --jobs 3'" } ] | Git repositories to use for the source code |
 
 Apart from the disks, you shouldn't have to set these options.
+
+## ManageIQ service management
+
+As we're deploying from source, we don't have a systemd service to handle
+ManageIQ. So, we have to manually start and stop the service:
+
+```
+$ cd /home/miq/manageiq
+$ bundle exec rake evm:start
+```
+
+```
+$ cd /home/miq/manageiq
+$ bundle exec rake evm:stop
+```
+
