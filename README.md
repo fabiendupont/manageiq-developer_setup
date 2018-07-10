@@ -107,8 +107,8 @@ use three configuration based on the following example files.
 
 [config/manageiq_vm.example.yml](../blob/master/config/manageiq_vm.example.yml)
 
-| Variable                           | Description                                        |
-| ---------------------------------- | -------------------------------------------------- |
+| Variable                           | Default | Description                                        |
+| ---------------------------------- | ------- | -------------------------------------------------- |
 | manageiq_vm_template               | Name of the template to use (cf. prereqs)          |
 | manageiq_vm_ovirt_cluster          | Name of the oVirt cluster where to deploy the VM   |
 | manageiq_vm_ovirt_datastore        | Name of the oVirt datastore where to deploy the VM |
@@ -129,11 +129,11 @@ use three configuration based on the following example files.
 
 [config/ovirt_auth.example.yml](../blob/master/config/ovirt_auth.example.yml)
 
-| Variable           | Description                        |
-| ------------------ | ---------------------------------- |
-| ovirt_api_endpoint | Base URL of the oVirt API endpoint |
-| ovirt_api_username | Username to connect to oVirt API   |
-| ovirt_api_password | Password to connect to oVirt API   |
+| Variable           | Default | Description                        |
+| ------------------ | ------- | ---------------------------------- |
+| ovirt_api_endpoint |         | Base URL of the oVirt API endpoint |
+| ovirt_api_username |         | Username to connect to oVirt API   |
+| ovirt_api_password |         | Password to connect to oVirt API   |
 
 [config/rhel_custom_repos.example.yml](../blob/master/config/rhel_custom_repos.example.yml)
 There's only one variable `rhel_custom_repos`, so take a look at the example.
@@ -144,15 +144,19 @@ variables. However, it is possible to override these defaults, when running
 the `manageiq_install.yml` playbook on a virtual machine deployed separately.
 The `inventory.example.yml` file shows the options one can set.
 
-| Variable           | Description                                           |
-| ------------------ | ----------------------------------------------------- |
-| manageiq_postgresql_version | PostgreSQL version to use (default: 9.5)     |
-| manageiq_ruby_version       | Ruby version to use (default: 2.4)           |
-| manageiq_postgresql_disk    | Disk on which PostgreSQL stores its data     |
-| manageiq_postgresql_vg_name | Name of the volume group for PostgreSQL      |
-| manageiq_postgresql_lv_name | Name of the logical volume for PostgreSQL    |
-| manageiq_logs_disk          | Disk on which ManageIQ logs are stored       |
-| manageiq_logs_vg_name       | Name of the volume group for ManageIQ logs   |
-| manageiq_logs_lv_name       | Name of the logical volume for ManageIQ logs |
+| Variable                        | Default         | Description                                  |
+| ------------------------------- | --------------- | -------------------------------------------- |
+| manageiq_postgresql_version     | 9.5             | PostgreSQL version to use                    |
+| manageiq_postgresql_scl         | rh-postgresql95 | Software collection name for PostgreSQL      |
+| manageiq_ruby_version           | 2.4             | Ruby version to use                          |
+| manageiq_ruby_scl               | rh-ruby24       | Software collection name for Ruby            |
+| manageiq_postgresql_disk        |                 | Disk on which PostgreSQL stores its data     |
+| manageiq_postgresql_vg_name     | vg_miq_pgsql    | Name of the volume group for PostgreSQL      |
+| manageiq_postgresql_lv_name     | lv_data         | Name of the logical volume for PostgreSQL    |
+| manageiq_logs_disk              | vg_miq_logs     | Disk on which ManageIQ logs are stored       |
+| manageiq_logs_vg_name           | lv_data         | Name of the volume group for ManageIQ logs   |
+| manageiq_logs_lv_name           |                 | Name of the logical volume for ManageIQ logs |
+| manageiq_postgresql_db_password | smartvm         | Password for the root user of the database   |
+| manageiq_git_repos              | [ { "name": "manageiq", "username": "ManageIQ", "branch": "master", "deps_command": "scl enable {{ manageiq_ruby_scl }} {{ manageiq_postgresql_scl }} 'bundle install --jobs 3'" } ] | Git repositories to use for the source code |
 
 Apart from the disks, you shouldn't have to set these options.
