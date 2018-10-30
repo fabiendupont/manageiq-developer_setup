@@ -14,8 +14,6 @@
     - libxml2-devel
     - libxslt-devel
     - memcached
-    - nodejs
-    - npm
     - openssl-devel
     - patch
     - readline-devel
@@ -23,6 +21,8 @@
     - "{{ manageiq_ruby_scl }}-ruby"
     - "{{ manageiq_ruby_scl }}-ruby-devel"
     - "{{ manageiq_ruby_scl }}-rubygems"
+    - "{{ manageiq_nodejs_scl }}-nodejs"
+    - "{{ manageiq_nodejs_scl }}-npm"
 
 - name: Generate /etc/profile.d config file for Ruby
   template:
@@ -41,10 +41,9 @@
     user_install: no
 
 - name: Install node.js packages
-  npm:
-    name: "{{ item }}"
-    state: latest
-    global: yes
+  command: npm install -g {{ item }}
+  environment:
+    PATH: "$PATH:/opt/rh/{{ manageiq_nodejs_scl }}/root/bin"
   with_items:
     - bower
     - gulp-cli
