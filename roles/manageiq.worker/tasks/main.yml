@@ -1,28 +1,27 @@
 ---
 - name: Install required packages
   yum:
-    name: "{{ item }}"
+    name:
+      - cmake
+      - bzip2
+      - docker
+      - gcc-c++
+      - git
+      - libcurl-devel
+      - libffi-devel
+      - libxml2-devel
+      - libxslt-devel
+      - memcached
+      - openssl-devel
+      - patch
+      - readline-devel
+      - sqlite-devel
+      - "{{ manageiq_ruby_scl }}-ruby"
+      - "{{ manageiq_ruby_scl }}-ruby-devel"
+      - "{{ manageiq_ruby_scl }}-rubygems"
+      - "{{ manageiq_nodejs_scl }}-nodejs"
+      - "{{ manageiq_nodejs_scl }}-npm"
     state: present
-  with_items:
-    - cmake
-    - bzip2
-    - docker
-    - gcc-c++
-    - git
-    - libcurl-devel
-    - libffi-devel
-    - libxml2-devel
-    - libxslt-devel
-    - memcached
-    - openssl-devel
-    - patch
-    - readline-devel
-    - sqlite-devel
-    - "{{ manageiq_ruby_scl }}-ruby"
-    - "{{ manageiq_ruby_scl }}-ruby-devel"
-    - "{{ manageiq_ruby_scl }}-rubygems"
-    - "{{ manageiq_nodejs_scl }}-nodejs"
-    - "{{ manageiq_nodejs_scl }}-npm"
 
 - name: Generate /etc/profile.d config file for Ruby
   template:

@@ -56,12 +56,11 @@
 
 - name: Install PostgreSQL packages
   yum:
-    name: "{{ item }}"
+    name:
+      - "{{ postgresql_scl }}-postgresql-devel"
+      - "{{ postgresql_scl }}-postgresql-server"
+      - python-psycopg2
     state: latest
-  with_items:
-    - "{{ postgresql_scl }}-postgresql-devel"
-    - "{{ postgresql_scl }}-postgresql-server"
-    - python-psycopg2
 
 - name: Generate /etc/profile.d config file for PostgreSQL
   template:

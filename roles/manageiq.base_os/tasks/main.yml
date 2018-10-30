@@ -35,20 +35,18 @@
 - block:
     - name: Enable aditionnal repositories
       yum:
-        name: "{{ item }}"
+        name:
+          - epel-release
+          - centos-release-scl
         state: present
-      with_items:
-        - epel-release
-        - centos-release-scl
   when: ansible_distribution == "CentOS"
 
 - name: Add packages not provided by RHEL cloud image
   yum:
-    name: "{{ item }}"
+    name:
+      - lvm2
+      - firewalld
     state: present
-  with_items:
-    - lvm2
-    - firewalld
 
 - name: Start and enable extra services
   service:
